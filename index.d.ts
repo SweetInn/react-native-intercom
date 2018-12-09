@@ -48,7 +48,7 @@ export function updateUser(attributes: {
 }): Promise<void>;
 
 /**
- * registerIdentifiedUser
+ * setApiKey
  * @param {apiKey: string, appId: string} options
  * @returns {Promise<void>}
  */
