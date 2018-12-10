@@ -42,6 +42,16 @@ public class IntercomModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void setApiKey(ReadableMap options, Callback callback) {
+        if (getCurrentActivity() != null) {
+            Log.e(TAG, "setApiKey is not implemented");
+            callback.invoke("setApiKey is not implemented");
+        } else {
+            Log.e(TAG, "setApiKey; getCurrentActivity() is null");
+        }
+    }
+
+    @ReactMethod
     public void registerIdentifiedUser(ReadableMap options, Callback callback) {
         if (options.hasKey("email") && options.getString("email").length() > 0) {
             Intercom.client().registerIdentifiedUser(
