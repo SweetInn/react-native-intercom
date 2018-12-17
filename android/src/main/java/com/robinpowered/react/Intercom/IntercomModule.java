@@ -1,5 +1,8 @@
 package com.robinpowered.react.Intercom;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Log;
 
 import com.facebook.react.bridge.Callback;
@@ -25,6 +28,8 @@ import io.intercom.android.sdk.UserAttributes;
 import io.intercom.android.sdk.identity.Registration;
 import io.intercom.android.sdk.push.IntercomPushClient;
 
+import static android.os.Looper.getMainLooper;
+
 public class IntercomModule extends ReactContextBaseJavaModule {
 
     private static final String MODULE_NAME = "IntercomWrapper";
@@ -44,8 +49,34 @@ public class IntercomModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setApiKey(ReadableMap options, Callback callback) {
         if (getCurrentActivity() != null) {
-            Log.e(TAG, "setApiKey is not implemented");
-            callback.invoke("setApiKey is not implemented");
+            callback.invoke(null, null);
+            int restartDelay = 1000;
+            Log.e(TAG, "setApiKey are saving apiKey and appId into SharedPreferences and restarting the app in a " + restartDelay + " milliseconds");
+
+            if (options.hasKey("apiKey") &&
+                    options.hasKey("appId") &&
+                    options.getString("apiKey").length() > 0 &&
+                    options.getString("appId").length() > 0)
+            {
+                String apiKey = options.getString("apiKey");
+                String appId = options.getString("appId");
+                SharedPreferences sharedPref = getCurrentActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("apiKey", apiKey);
+                editor.putString("appId", appId);
+                editor.commit();
+
+                Handler mHandler = new Handler(getMainLooper());
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() { Runtime.getRuntime().exit(0);
+                    }
+                }, restartDelay);
+            }
+
+
+
+//            callback.invoke("setApiKey is not implemented");
         } else {
             Log.e(TAG, "setApiKey; getCurrentActivity() is null");
         }
