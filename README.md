@@ -16,12 +16,6 @@ React Native wrapper for Intercom.io. Based off of [intercom-cordova](https://gi
     yarn add react-native-intercom  # or npm install react-native-intercom
     ```
 
-    Others have reported issues with the current 11.x version and recommend installing the 10.2.0 version:
-
-    ```bash
-    yarn add react-native-intercom@10.2.0  # or npm install react-native-intercom@10.2.0
-    ```
-
 1. Link native dependencies
 
     ```bash
@@ -287,6 +281,9 @@ _onUnreadChange = ({ count }) => {
 ```javascript
     // The window was hidden
     Intercom.Notifications.WINDOW_DID_HIDE
+
+    // The window was shown
+    Intercom.Notifications.WINDOW_DID_SHOW
 ```
 
 ### Send FCM token directly to Intercom for push notifications (Android only)
