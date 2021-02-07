@@ -48,9 +48,9 @@ public class IntercomModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setApiKey(ReadableMap options, Callback callback) {
+    public void setApiKey(ReadableMap options, Promise promise) {
         if (getCurrentActivity() != null) {
-            callback.invoke(null, null);
+            promise.resolve(null);
             int restartDelay = 1000;
             Log.e(TAG, "setApiKey are saving apiKey and appId into SharedPreferences and restarting the app in a " + restartDelay + " milliseconds");
 
@@ -67,17 +67,13 @@ public class IntercomModule extends ReactContextBaseJavaModule {
                 editor.putString("appId", appId);
                 editor.commit();
 
-                Handler mHandler = new Handler(getMainLooper());
+                Handler mHandler = new Handler(Looper.getMainLooper());
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() { Runtime.getRuntime().exit(0);
                     }
                 }, restartDelay);
             }
-
-
-
-//            callback.invoke("setApiKey is not implemented");
         } else {
             Log.e(TAG, "setApiKey; getCurrentActivity() is null");
         }
