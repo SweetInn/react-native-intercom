@@ -1,13 +1,14 @@
 interface IVisibility {
-  GONE: "GONE";
-  VISIBLE: "VISIBLE";
+  GONE: 'GONE';
+  VISIBLE: 'VISIBLE';
 }
 declare const Visibility: IVisibility;
 type VisibilityType = IVisibility[keyof IVisibility];
 
 interface INotifications {
-  UNREAD_COUNT: "UNREAD_CHANGE_NOTIFICATION";
-  WINDOW_DID_HIDE: "WINDOW_DID_HIDE";
+  UNREAD_COUNT: 'UNREAD_CHANGE_NOTIFICATION';
+  WINDOW_DID_SHOW: 'WINDOW_DID_SHOW';
+  WINDOW_DID_HIDE: 'WINDOW_DID_HIDE';
 }
 declare const Notifications: INotifications;
 
@@ -59,12 +60,10 @@ export function setApiKey(options: {
 
 /**
  * registerIdentifiedUser
- * @param {userId: string} options
+ * @param {userId: string} | {email: string} options
  * @returns {Promise<void>}
  */
-export function registerIdentifiedUser(options: {
-  userId: string;
-}): Promise<void>;
+export function registerIdentifiedUser(options: { userId: string } | { email: string }): Promise<void>;
 
 /**
  * logout
@@ -75,12 +74,9 @@ export function logout(): Promise<void>;
 /**
  * Log an event
  * @param {string} eventName
- * @param {[key: string]: string} metadata
+ * @param {[key: string]: string | number | boolean } metadata
  */
-export function logEvent(
-  eventName: string,
-  metadata: { [key: string]: string }
-): Promise<void>;
+export function logEvent(eventName: string, metadata: { [key: string]: string | number | boolean }): Promise<void>;
 
 /**
  * handlePushMessage
@@ -110,9 +106,7 @@ export function displayMessageComposer(): Promise<void>;
  * @param {string} message
  * @returns {Promise<void>}
  */
-export function displayMessageComposerWithInitialMessage(
-  message: string
-): Promise<void>;
+export function displayMessageComposerWithInitialMessage(message: string): Promise<void>;
 
 /**
  * displayConversationsList
@@ -137,18 +131,14 @@ export function displayHelpCenter(): Promise<void>;
  * @param {string} visibility
  * @returns {Promise<void>}
  */
-export function setLauncherVisibility(
-  visibility: VisibilityType
-): Promise<void>;
+export function setLauncherVisibility(visibility: VisibilityType): Promise<void>;
 
 /**
  * setLauncherVisibility
  * @param {string} visibility
  * @returns {Promise<void>}
  */
-export function setInAppMessageVisibility(
-  visibility: VisibilityType
-): Promise<void>;
+export function setInAppMessageVisibility(visibility: VisibilityType): Promise<void>;
 
 /**
  * setupAPN
