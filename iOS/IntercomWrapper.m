@@ -10,14 +10,13 @@
 #import "IntercomUserAttributesBuilder.h"
 #import <Intercom/Intercom.h>
 #import <React/RCTUtils.h>
-#import <React/RCTUtilsUIOverride.h>
-
+// #import <React/RCTUtilsUIOverride.h>
 @implementation IntercomWrapper
 
 RCT_EXPORT_MODULE();
 
 // Available as NativeModules.IntercomWrapper.setApiKey
-RCT_EXPORT_METHOD(setApiKey:(NSDictionary*)options callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(setApiKey:(NSDictionary*)options resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
    NSLog(@"setApiKey");
 
    NSString* apiKey = options[@"apiKey"];
@@ -25,7 +24,7 @@ RCT_EXPORT_METHOD(setApiKey:(NSDictionary*)options callback:(RCTResponseSenderBl
 
    [Intercom setApiKey:apiKey forAppId:appId];
 
-   callback(@[[NSNull null]]);
+   resolve([NSNull null]);
 };
 
 // Available as NativeModules.IntercomWrapper.registerIdentifiedUser
@@ -117,9 +116,9 @@ RCT_EXPORT_METHOD(handlePushMessage :(RCTPromiseResolveBlock)resolve :(RCTPromis
 // Available as NativeModules.IntercomWrapper.displayMessenger
 RCT_EXPORT_METHOD(displayMessenger :(RCTPromiseResolveBlock)resolve :(RCTPromiseRejectBlock)reject) {
     NSLog(@"displayMessenger");
-    
-    UIViewController *controller = RCTPresentedViewController();
-    [RCTUtilsUIOverride setPresentedViewController:controller];
+
+    // UIViewController *controller = RCTPresentedViewController();
+    // [RCTUtilsUIOverride setPresentedViewController:controller];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [Intercom presentMessenger];
@@ -142,9 +141,9 @@ RCT_EXPORT_METHOD(hideMessenger :(RCTPromiseResolveBlock)resolve :(RCTPromiseRej
 // Available as NativeModules.IntercomWrapper.displayMessageComposer
 RCT_EXPORT_METHOD(displayMessageComposer :(RCTPromiseResolveBlock)resolve :(RCTPromiseRejectBlock)reject) {
     NSLog(@"displayMessageComposer");
-    
-    UIViewController *controller = RCTPresentedViewController();
-    [RCTUtilsUIOverride setPresentedViewController:controller];
+
+    // UIViewController *controller = RCTPresentedViewController();
+    // [RCTUtilsUIOverride setPresentedViewController:controller];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [Intercom presentMessageComposer];
@@ -155,10 +154,9 @@ RCT_EXPORT_METHOD(displayMessageComposer :(RCTPromiseResolveBlock)resolve :(RCTP
 
 RCT_EXPORT_METHOD(displayMessageComposerWithInitialMessage:(NSString*)message resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     NSLog(@"displayMessageComposerWithInitialMessage");
-    
-    UIViewController *controller = RCTPresentedViewController();
-    [RCTUtilsUIOverride setPresentedViewController:controller];
 
+    // UIViewController *controller = RCTPresentedViewController();
+    // [RCTUtilsUIOverride setPresentedViewController:controller];
     dispatch_async(dispatch_get_main_queue(), ^{
         [Intercom presentMessageComposerWithInitialMessage:message];
     });
@@ -169,10 +167,9 @@ RCT_EXPORT_METHOD(displayMessageComposerWithInitialMessage:(NSString*)message re
 // Available as NativeModules.IntercomWrapper.displayConversationsList
 RCT_EXPORT_METHOD(displayConversationsList :(RCTPromiseResolveBlock)resolve :(RCTPromiseRejectBlock)reject) {
     NSLog(@"displayConversationsList");
-    
-    UIViewController *controller = RCTPresentedViewController();
-    [RCTUtilsUIOverride setPresentedViewController:controller];
 
+    // UIViewController *controller = RCTPresentedViewController();
+    // [RCTUtilsUIOverride setPresentedViewController:controller];
     dispatch_async(dispatch_get_main_queue(), ^{
         [Intercom presentConversationList];
     });
@@ -192,10 +189,9 @@ RCT_EXPORT_METHOD(getUnreadConversationCount :(RCTPromiseResolveBlock)resolve :(
 // Available as NativeModules.IntercomWrapper.displayHelpCenter
 RCT_EXPORT_METHOD(displayHelpCenter :(RCTPromiseResolveBlock)resolve :(RCTPromiseRejectBlock)reject) {
     NSLog(@"displayHelpCenter");
-    
-    UIViewController *controller = RCTPresentedViewController();
-    [RCTUtilsUIOverride setPresentedViewController:controller];
 
+    // UIViewController *controller = RCTPresentedViewController();
+    // [RCTUtilsUIOverride setPresentedViewController:controller];
     dispatch_async(dispatch_get_main_queue(), ^{
         [Intercom presentHelpCenter];
     });
